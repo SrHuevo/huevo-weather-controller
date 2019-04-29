@@ -1,0 +1,11 @@
+<div class="content">
+  <img [src]="'http://openweathermap.org/img/w/' + icon + '.png'" class="icon">
+  <div class="temp">
+    <div class="value">{{this.temperature}}</div>
+    <div class="units">ºC</div>
+  </div>
+  <div class="desc">
+    <div class="humidity">Humedad: {{humidity}}%</div>
+    <div>Viento: {{windSpeed}}km/h</div>
+  </div>
+</div>

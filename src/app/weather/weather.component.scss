@@ -1,0 +1,35 @@
+
+.content {
+  border: #e2e2e2 1px solid;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 20px;
+  display: inline-flex;
+
+  .img {
+    float: left;
+  }
+
+  .temp {
+    margin-left: 10px;
+    float: left;
+
+    .value {
+      float: left;
+      font-size: 3em;
+    }
+
+    .units {
+      float: left;
+      margin-top: 8px;
+    }
+
+  }
+
+  .desc {
+    margin-left: 20px;
+    float: right;
+    color: #adadad;
+  }
+
+}
