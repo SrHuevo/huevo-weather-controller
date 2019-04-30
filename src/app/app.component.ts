@@ -49,5 +49,12 @@ export class AppComponent {
     } as City
   }
 
+  getMean() {
+    const cities = [this.almeria, this.granada, this.malaga, this.jaen, this.cordoba, this.sevilla, this.huelva, this.cadiz]
+
+    return cities.reduce((mean, city) => {
+      return mean + Number(city.temperature) / cities.length
+    }, 0)
+  }
 
 }
