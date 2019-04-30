@@ -55,9 +55,13 @@ export class AppComponent {
   getMean() {
     const cities = [this.almeria, this.granada, this.malaga, this.jaen, this.cordoba, this.sevilla, this.huelva, this.cadiz]
 
-    return cities.reduce((mean, city) => {
-      return mean + Number(city.temperature) / cities.length
-    }, 0)
+    try {
+      return cities.reduce((mean, city) => {
+        return mean + Number(city.temperature) / cities.length
+      }, 0)
+    } catch (e) {
+      return 'loading'
+    }
   }
 
 
@@ -80,7 +84,7 @@ export class AppComponent {
       })
     });
 
-    this.map.on('click', function (args) {
+    this.map.on('click', (args) => {
       var [lon, lat] = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
 
       this.setCityWeather(lon, lat)
@@ -88,7 +92,7 @@ export class AppComponent {
   }
 
   async setCityWeather(lon, lat) {
-    const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data
+    const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data.list[0]
     this.city = {
       icon: currentWeather.weather[0].icon,
       temperature: currentWeather.main.temp.toString(),
