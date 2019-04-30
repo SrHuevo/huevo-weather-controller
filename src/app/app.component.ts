@@ -9,6 +9,8 @@ interface City {
   windSpeed: string;
 }
 
+declare var ol: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,6 +25,7 @@ export class AppComponent {
   sevilla: City
   huelva: City
   cadiz: City
+  city: City
 
   constructor(public weatherService: WeatherService) {
     this.setWeathers();
@@ -55,6 +58,44 @@ export class AppComponent {
     return cities.reduce((mean, city) => {
       return mean + Number(city.temperature) / cities.length
     }, 0)
+  }
+
+
+  latitude: number = 40.420300;
+  longitude: number = -3.693162;
+
+  map: any;
+
+  ngOnInit() {
+    this.map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([this.longitude, this.latitude]),
+        zoom: 8
+      })
+    });
+
+    this.map.on('click', function (args) {
+      var [lon, lat] = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
+
+      this.setCityWeather(lon, lat)
+    });
+  }
+
+  async setCityWeather(lon, lat) {
+    const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data
+    this.city = {
+      icon: currentWeather.weather[0].icon,
+      temperature: currentWeather.main.temp.toString(),
+      humidity: currentWeather.main.humidity.toString(),
+      windSpeed: currentWeather.wind.speed.toString(),
+    }
+
   }
 
 }
