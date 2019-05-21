@@ -4,32 +4,42 @@
   margin: 10px;
   border-radius: 5px;
   padding: 20px;
-  display: inline-flex;
+  display: inline-block;
 
-  .img {
-    float: left;
+  .city {
+    font-size: 22px;
+    margin-bottom: 15px;
   }
 
-  .temp {
-    margin-left: 10px;
-    float: left;
+  .info {
+    display: inline-flex;
 
-    .value {
+    .img {
       float: left;
-      font-size: 3em;
     }
 
-    .units {
+    .temp {
+      margin-left: 10px;
       float: left;
-      margin-top: 8px;
+
+      .value {
+        float: left;
+        font-size: 3em;
+      }
+
+      .units {
+        float: left;
+        margin-top: 8px;
+      }
+
     }
 
-  }
+    .desc {
+      margin-left: 20px;
+      float: right;
+      color: #adadad;
+    }
 
-  .desc {
-    margin-left: 20px;
-    float: right;
-    color: #adadad;
   }
 
 }

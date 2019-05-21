@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
-    "huevo-weather-model": "git://github.com/SrHuevo/huevo-weather-model.git#214b3dac02349140cff741b55fbe1cb9af77c3c0",
+    "huevo-weather-model": "git://github.com/SrHuevo/huevo-weather-model.git#595d4912b6267971de0cc52c3a333acdc829336e",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

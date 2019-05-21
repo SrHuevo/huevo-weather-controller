@@ -1,8 +1,9 @@
-import { Component } from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {WeatherService} from 'huevo-weather-model/dist/weather.service'
 import {CurrentWeather} from 'huevo-weather-model/dist/dto/current-weather.dto'
 
 interface City {
+  name: string;
   icon: string;
   temperature: string;
   humidity: string;
@@ -16,59 +17,15 @@ declare var ol: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  almeria: City
-  granada: City
-  malaga: City
-  jaen: City
-  cordoba: City
-  sevilla: City
-  huelva: City
-  cadiz: City
+export class AppComponent implements OnInit {
+
   city: City
-
-  constructor(public weatherService: WeatherService) {
-    this.setWeathers();
-  }
-
-  async setWeathers() {
-    this.almeria = await this.setWeather('almeria')
-    this.granada = await this.setWeather('granada')
-    this.malaga = await this.setWeather('malaga')
-    this.jaen = await this.setWeather('jaen')
-    this.cordoba = await this.setWeather('cordoba')
-    this.sevilla = await this.setWeather('sevilla')
-    this.huelva = await this.setWeather('huelva')
-    this.cadiz = await this.setWeather('cadiz')
-  }
-
-  async setWeather(city) {
-    const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCity(city, 'ES')).data
-    return {
-      icon: currentWeather.weather[0].icon,
-      temperature: currentWeather.main.temp.toString(),
-      humidity: currentWeather.main.humidity.toString(),
-      windSpeed: currentWeather.wind.speed.toString(),
-    } as City
-  }
-
-  getMean() {
-    const cities = [this.almeria, this.granada, this.malaga, this.jaen, this.cordoba, this.sevilla, this.huelva, this.cadiz]
-
-    try {
-      return cities.reduce((mean, city) => {
-        return mean + Number(city.temperature) / cities.length
-      }, 0)
-    } catch (e) {
-      return 'loading'
-    }
-  }
-
-
   latitude: number = 40.420300;
   longitude: number = -3.693162;
-
   map: any;
+
+  constructor(public weatherService: WeatherService) {
+  }
 
   ngOnInit() {
     this.map = new ol.Map({
@@ -94,6 +51,7 @@ export class AppComponent {
   async setCityWeather(lon, lat) {
     const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data.list[0]
     this.city = {
+      name: currentWeather.name,
       icon: currentWeather.weather[0].icon,
       temperature: currentWeather.main.temp.toString(),
       humidity: currentWeather.main.humidity.toString(),
