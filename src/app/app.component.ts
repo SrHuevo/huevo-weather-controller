@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit {
       ],
       view: new ol.View({
         center: ol.proj.fromLonLat([this.longitude, this.latitude]),
-        zoom: 8
+        zoom: 15
       })
     });
 
@@ -47,10 +48,20 @@ export class AppComponent implements OnInit {
 
       this.setCityWeather(lon, lat)
     });
+
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lon = position.coords.longitude
+        const lat = position.coords.latitude
+        const lonlat = new ol.proj.fromLonLat([lon, lat])
+        this.map.getView().setCenter(lonlat)
+        this.setCityWeather(lon, lat)
+      }
+    )
   }
 
   async setCityWeather(lon, lat) {
-    this.init = true
     const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data.list[0]
     this.city = {
       name: currentWeather.name,
@@ -59,6 +70,7 @@ export class AppComponent implements OnInit {
       humidity: currentWeather.main.humidity.toString(),
       windSpeed: currentWeather.wind.speed.toString(),
     }
+    this.init = true
 
   }
 
