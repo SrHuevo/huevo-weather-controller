@@ -1,4 +1,7 @@
-<huevo-weather [name]="city?.name" [icon]="city?.icon" [temperature]="city?.temperature"
-               [humidity]="city?.humidity" [windSpeed]="city?.windSpeed"></huevo-weather>
+<div *ngIf="init" >
+  <huevo-weather [name]="city?.name" [icon]="city?.icon" [temperature]="city?.temperature"
+                 [humidity]="city?.humidity" [windSpeed]="city?.windSpeed"></huevo-weather>
+
+</div>
 <div id="map" class="map"></div>
 

@@ -19,6 +19,7 @@ declare var ol: any;
 })
 export class AppComponent implements OnInit {
 
+  init = false
   city: City
   latitude: number = 40.420300;
   longitude: number = -3.693162;
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
   }
 
   async setCityWeather(lon, lat) {
+    this.init = true
     const currentWeather: CurrentWeather = (await this.weatherService.getCurrentWeatherByCoords(lat, lon)).data.list[0]
     this.city = {
       name: currentWeather.name,

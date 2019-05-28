@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --base-href \"https://srhuevo.github.io/huevo-weather-controller/\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "angular-cli-ghpages": "^0.5.3",
     "core-js": "^2.5.4",
     "huevo-weather-model": "git://github.com/SrHuevo/huevo-weather-model.git#595d4912b6267971de0cc52c3a333acdc829336e",
     "rxjs": "~6.3.3",
